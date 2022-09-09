@@ -92,7 +92,6 @@ function moveByKeys (event) {
 }
   //console.log(event)
 
-
 function moveUp () {
     console.log("moving up");
     playerPosition.y -= elementsSize;
