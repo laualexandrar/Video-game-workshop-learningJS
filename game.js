@@ -1,9 +1,10 @@
 const canvas = document.querySelector('#game');
 const game = canvas.getContext('2d');
-const upButton = document.querySelector ('#up')
-const rightButton = document.querySelector ('#right')
-const leftButton = document.querySelector ('#left')
-const downButton = document.querySelector ('#down')
+const upButton = document.querySelector ('#up');
+const rightButton = document.querySelector ('#right');
+const leftButton = document.querySelector ('#left');
+const downButton = document.querySelector ('#down');
+const spanLives = document.querySelector('#lives')
 
 let canvasSize;
 let elementsSize;
@@ -54,6 +55,8 @@ function startGame() {
   const mapRows = map.trim().split('\n');
   const mapRowCols = mapRows.map(row => row.trim().split(''));
   console.log({map, mapRows, mapRowCols});
+
+  showLives();
   
   enemyPositions = [];
 
@@ -118,6 +121,7 @@ function winningLevel() {
 function levelFail() {
   console.log("ENEMY!")
   lives--;
+
   console.log(lives)
   if(lives <= 0) {
     level = 0;
@@ -130,7 +134,14 @@ function levelFail() {
 function gameWin() {
   console.log('¡Terminaste el juego!');
 }
+function showLives() {
+  const heartsArray = Array(lives).fill(emojis['HEART']);
+  console.log(heartsArray);
 
+  spanLives.innerHTML = "";
+  heartsArray.forEach(heart => spanLives.append(heart))
+  
+}
   //rowI and colI are the index
   
   // for (let row = 1; row <= 10; row++) {
