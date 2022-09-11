@@ -5,9 +5,9 @@ const rightButton = document.querySelector ('#right');
 const leftButton = document.querySelector ('#left');
 const downButton = document.querySelector ('#down');
 const spanLives = document.querySelector('#lives')
-const spanTime = document.querySelector('#time')
-const record = document.querySelector('#record')
-const pResult = document.querySelector('#result')
+const spanTime = document.querySelector('#time');
+const spanRecord = document.querySelector('#record');
+const pResult = document.querySelector('#result');
 
 let canvasSize;
 let elementsSize;
@@ -149,19 +149,23 @@ function gameWin() {
   clearInterval(timeInterval);
 
   const recordTime = localStorage.getItem('record_time');
-  if(recordTime) {
-     const playerTime = Date.now( - timeStart);
-     if(recordTime >= playerTime) {
+  const playerTime = Date.now() - timeStart;
+
+  if (recordTime) {
+    if (recordTime >= playerTime) {
       localStorage.setItem('record_time', playerTime)
-      console.log('you made a new record! Congratulations!')
+      pResult.innerHTML ='you made a new record! Congratulations!';
      } else {
-      console.log('Sorry, this is not a record')
+      pResult.innerHTML ='Sorry, this is not a record';
      }
   } else {
     localStorage.setItem('record_time', playerTime)
+    pResult.innerHTML = 'first time playing? Try to get a new record';
   }
+
   console.log({recordTime, playerTime});
 }
+
 function showLives() {
   const heartsArray = Array(lives).fill(emojis['HEART']);
   console.log(heartsArray);
@@ -174,7 +178,7 @@ function showTime() {
   spanTime.innerHTML = Date.now() - timeStart;
 }
 function showRecord() {
-  spanTime.innerHTML = localStorage.getItem('record');
+  spanRecord.innerHTML = localStorage.getItem('record_time');
 }
 
   //rowI and colI are the index
