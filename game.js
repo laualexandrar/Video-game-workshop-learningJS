@@ -5,11 +5,18 @@ const rightButton = document.querySelector ('#right');
 const leftButton = document.querySelector ('#left');
 const downButton = document.querySelector ('#down');
 const spanLives = document.querySelector('#lives')
+const spanTime = document.querySelector('#time')
+const record = document.querySelector('#record')
+const pResult = document.querySelector('#result')
 
 let canvasSize;
 let elementsSize;
 let level = 0;
 let lives = 3;
+
+let timeStart;
+let timePlayer;
+let timeInterval;
 
 
 const playerPosition = {
@@ -52,6 +59,11 @@ function startGame() {
     return;
   }
 
+  if (!timeStart) {
+    timeStart = Date.now();
+    timeInterval = setInterval(showTime, 100);
+    showRecord();
+  }
   const mapRows = map.trim().split('\n');
   const mapRowCols = mapRows.map(row => row.trim().split(''));
   console.log({map, mapRows, mapRowCols});
@@ -126,6 +138,7 @@ function levelFail() {
   if(lives <= 0) {
     level = 0;
     lives = 3;
+    timeStart=  undefined;
   }
   playerPosition.x = undefined;
   playerPosition.y = undefined;
@@ -133,6 +146,21 @@ function levelFail() {
 }
 function gameWin() {
   console.log('¡Terminaste el juego!');
+  clearInterval(timeInterval);
+
+  const recordTime = localStorage.getItem('record_time');
+  if(recordTime) {
+     const playerTime = Date.now( - timeStart);
+     if(recordTime >= playerTime) {
+      localStorage.setItem('record_time', playerTime)
+      console.log('you made a new record! Congratulations!')
+     } else {
+      console.log('Sorry, this is not a record')
+     }
+  } else {
+    localStorage.setItem('record_time', playerTime)
+  }
+  console.log({recordTime, playerTime});
 }
 function showLives() {
   const heartsArray = Array(lives).fill(emojis['HEART']);
@@ -142,6 +170,13 @@ function showLives() {
   heartsArray.forEach(heart => spanLives.append(heart))
   
 }
+function showTime() {
+  spanTime.innerHTML = Date.now() - timeStart;
+}
+function showRecord() {
+  spanTime.innerHTML = localStorage.getItem('record');
+}
+
   //rowI and colI are the index
   
   // for (let row = 1; row <= 10; row++) {
