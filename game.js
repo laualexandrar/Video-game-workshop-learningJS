@@ -254,8 +254,10 @@ function moveByKeys (event) {
       startGame();
     }
   } 
+
   function restartGame() {
     console.log('restart game');
+    //countdown();
     level = 0;
     lives = 3;
     timeStart=  undefined;
@@ -263,5 +265,4 @@ function moveByKeys (event) {
     playerPosition.x = undefined;
     playerPosition.y = undefined;
     startGame();
-    
   }

@@ -60,6 +60,8 @@ body {
   }
   
   @media (max-width: 440px) {
-    button { margin-top: 5px; }
+    button { margin: 5px 0 10px; padding: 10px 25px; }
     #up, #down { margin-left: 100%; margin-right: 100%; }
+    #restart { margin-top: 30px;}
+    .messages {text-align: center;}
   }
