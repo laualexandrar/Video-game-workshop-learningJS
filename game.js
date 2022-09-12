@@ -9,6 +9,7 @@ const spanLives = document.querySelector('#lives')
 const spanTime = document.querySelector('#time');
 const spanRecord = document.querySelector('#record');
 const pResult = document.querySelector('#result');
+const countdownText = document.querySelector('.countdown')
 
 let canvasSize;
 let elementsSize;
@@ -53,7 +54,8 @@ function setCanvasSize() {
   playerPosition.x = undefined;
   playerPosition.y = undefined;
 
-  startGame();
+  //countdown()
+ restartGame();
 }
 
 function startGame() {
@@ -107,7 +109,6 @@ function startGame() {
       game.fillText(emoji, posX, posY);
     });
   });
-
   movePlayer();
 }
 
@@ -184,7 +185,11 @@ function showLives() {
   
 }
 function showTime() {
-  spanTime.innerHTML = Date.now() - timeStart;
+  if(timeStart == undefined) {
+    spanTime.innerHTML = 0;
+  } else {
+    spanTime.innerHTML = Date.now() - timeStart;
+  }
 }
 function showRecord() {
   spanRecord.innerHTML = localStorage.getItem('record_time');
@@ -254,15 +259,30 @@ function moveByKeys (event) {
       startGame();
     }
   } 
-
+  function countdown() {
+    console.log("counting down");
+    let numberCount = 3
+    function count () {
+      if (numberCount > 0) {
+        countdownText.innerHTML = numberCount;
+        numberCount--;
+        setTimeout(count, 700);
+      }
+      else {
+        countdownText.innerHTML ='Go!';
+      }  
+    }
+    count ()
+    startGame()
+  }
   function restartGame() {
     console.log('restart game');
-    //countdown();
+    countdown()
     level = 0;
     lives = 3;
-    timeStart=  undefined;
+    timeStart= undefined;
     pResult.innerHTML = '';
     playerPosition.x = undefined;
-    playerPosition.y = undefined;
-    startGame();
-  }
+    playerPosition.y = undefined;  
+      setTimeout(startGame, 3000);
+    }
