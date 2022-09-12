@@ -41,7 +41,10 @@ body {
   button:not(:last-child) {
     margin-right: 10px;
   }
-  
+   #restart {
+    background-color: #82B700;
+    border-color: #ff6600;
+  }
   .messages {
     display: flex;
     flex-wrap: wrap;

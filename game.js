@@ -4,6 +4,7 @@ const upButton = document.querySelector ('#up');
 const rightButton = document.querySelector ('#right');
 const leftButton = document.querySelector ('#left');
 const downButton = document.querySelector ('#down');
+const restartButton = document.querySelector ('#restart');
 const spanLives = document.querySelector('#lives')
 const spanTime = document.querySelector('#time');
 const spanRecord = document.querySelector('#record');
@@ -153,7 +154,7 @@ function levelFail() {
   startGame();
 }
 function gameWin() {
-  console.log('¡Terminaste el juego!');
+  console.log('¡Game Finished!');
   clearInterval(timeInterval);
 
   const recordTime = localStorage.getItem('record_time');
@@ -202,6 +203,7 @@ upButton.addEventListener('click', moveUp);
 rightButton.addEventListener('click', moveRight);
 leftButton.addEventListener('click', moveLeft);
 downButton.addEventListener('click', moveDown);
+restartButton.addEventListener('click', restartGame);
 
 function moveByKeys (event) {
   if(event.key == 'ArrowUp') moveUp();
@@ -251,4 +253,15 @@ function moveByKeys (event) {
       playerPosition.y += elementsSize;
       startGame();
     }
+  } 
+  function restartGame() {
+    console.log('restart game');
+    level = 0;
+    lives = 3;
+    timeStart=  undefined;
+    pResult.innerHTML = '';
+    playerPosition.x = undefined;
+    playerPosition.y = undefined;
+    startGame();
+    
   }
