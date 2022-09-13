@@ -286,3 +286,10 @@ function moveByKeys (event) {
     playerPosition.y = undefined;  
       setTimeout(startGame, 3000);
     }
+
+  function victory() {
+
+    }
+  function collision() {
+      setTimeout()
+    }
